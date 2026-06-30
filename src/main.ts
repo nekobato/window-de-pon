@@ -27,7 +27,7 @@ function createStage(stageNumber: number) {
   let movingLeft = false;
   let movingRight = false;
 
-  function onKeyDown(eventName: string, payload: any) {
+  function onKeyDown(_: any, payload: any) {
     switch (payload) {
       case 'left':
         movingLeft = true;
@@ -59,7 +59,7 @@ function createStage(stageNumber: number) {
         break;
     }
   }
-  ipcMain.on('KEY_UP', (eventName: string, payload: any) => {
+  ipcMain.on('KEY_UP', (_, payload: any) => {
     switch (payload) {
       case 'left':
         movingLeft = false;
@@ -151,7 +151,7 @@ app.on('ready', () => {
   const { workAreaSize } = electron.screen.getPrimaryDisplay();
   menuWindow = createMenu(workAreaSize);
 
-  ipcMain.on('STAGE_SELECT', (_: string, stageNumber: number) => {
+  ipcMain.on('STAGE_SELECT', (_, stageNumber: number) => {
     console.log('stage select', stageNumber);
     menuWindow.hide();
     createStage(stageNumber);

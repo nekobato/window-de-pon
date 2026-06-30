@@ -14,12 +14,13 @@ export function createMenu(workAreaSize: Size) {
     center: false,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.resolve('./dist/preload.js'),
     },
   });
   window.loadURL('file://' + path.resolve(`./public/menu.html`));
   window.show();
 
-  window.on('closed', function() {
+  window.on('closed', function () {
     window = null;
   });
 
@@ -37,6 +38,7 @@ export function createBall(bounds: Bounds) {
     center: false,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.resolve('./dist/preload.js'),
     },
     maximizable: false,
     minimizable: false,
@@ -46,7 +48,7 @@ export function createBall(bounds: Bounds) {
   window.loadURL('file://' + path.resolve(`./public/ball.html`));
   window.show();
 
-  window.on('closed', function() {
+  window.on('closed', function () {
     window = null;
   });
 
@@ -63,6 +65,7 @@ export function createBlock(bounds: Bounds, type: string) {
     center: false,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.resolve('./dist/preload.js'),
     },
     minimizable: false,
     fullscreenable: false,
@@ -70,7 +73,7 @@ export function createBlock(bounds: Bounds, type: string) {
   window.loadURL('file://' + path.resolve(`./public/blocks/${type}.html`));
   window.show();
 
-  window.on('closed', function() {
+  window.on('closed', function () {
     window = null;
   });
 
@@ -87,6 +90,7 @@ export function createBar(bounds: Bounds) {
     center: false,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.resolve('./dist/preload.js'),
     },
     minimizable: false,
     closable: false,
@@ -95,7 +99,7 @@ export function createBar(bounds: Bounds) {
   window.loadURL('file://' + path.resolve(`./public/bar.html`));
   window.show();
 
-  window.on('closed', function() {
+  window.on('closed', function () {
     window = null;
   });
 
