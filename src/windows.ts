@@ -2,6 +2,9 @@ import path from 'path';
 import { ballSize, blockSize, barSize, Bounds, taskBarHeight } from './sizes';
 import { BrowserWindow, Size } from 'electron';
 
+const publicDirectory = path.join(__dirname, '..', 'public');
+const preloadPath = path.join(__dirname, 'preload.js');
+
 export function createMenu(workAreaSize: Size) {
   const width = 750;
   let window = new BrowserWindow({
@@ -13,11 +16,11 @@ export function createMenu(workAreaSize: Size) {
     resizable: true,
     center: false,
     webPreferences: {
-      nodeIntegration: true,
-      preload: path.resolve('./dist/preload.js'),
+      nodeIntegration: false,
+      preload: preloadPath,
     },
   });
-  window.loadURL('file://' + path.resolve(`./public/menu.html`));
+  window.loadFile(path.join(publicDirectory, 'menu.html'));
   window.show();
 
   window.on('closed', function () {
@@ -37,15 +40,15 @@ export function createBall(bounds: Bounds) {
     resizable: false,
     center: false,
     webPreferences: {
-      nodeIntegration: true,
-      preload: path.resolve('./dist/preload.js'),
+      nodeIntegration: false,
+      preload: preloadPath,
     },
     maximizable: false,
     minimizable: false,
     closable: false,
     fullscreenable: false,
   });
-  window.loadURL('file://' + path.resolve(`./public/ball.html`));
+  window.loadFile(path.join(publicDirectory, 'ball.html'));
   window.show();
 
   window.on('closed', function () {
@@ -64,13 +67,13 @@ export function createBlock(bounds: Bounds, type: string) {
     resizable: true,
     center: false,
     webPreferences: {
-      nodeIntegration: true,
-      preload: path.resolve('./dist/preload.js'),
+      nodeIntegration: false,
+      preload: preloadPath,
     },
     minimizable: false,
     fullscreenable: false,
   });
-  window.loadURL('file://' + path.resolve(`./public/blocks/${type}.html`));
+  window.loadFile(path.join(publicDirectory, 'blocks', `${type}.html`));
   window.show();
 
   window.on('closed', function () {
@@ -89,14 +92,14 @@ export function createBar(bounds: Bounds) {
     resizable: true,
     center: false,
     webPreferences: {
-      nodeIntegration: true,
-      preload: path.resolve('./dist/preload.js'),
+      nodeIntegration: false,
+      preload: preloadPath,
     },
     minimizable: false,
     closable: false,
     fullscreenable: false,
   });
-  window.loadURL('file://' + path.resolve(`./public/bar.html`));
+  window.loadFile(path.join(publicDirectory, 'bar.html'));
   window.show();
 
   window.on('closed', function () {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,39 +8,39 @@
   </head>
   <body>
     <script>
-      const { ipcRenderer } = require('electron');
+      const gameIpc = window.ipc;
 
-      document.addEventListener('keydown', e => {
+      document.addEventListener('keydown', (e) => {
         e.preventDefault();
         switch (e.keyCode) {
           case 37: // left
-            ipcRenderer.send('KEY_DOWN', 'left');
+            gameIpc.send('KEY_DOWN', 'left');
             break;
           case 39: // right
-            ipcRenderer.send('KEY_DOWN', 'right');
+            gameIpc.send('KEY_DOWN', 'right');
             break;
           case 13: // enter
-            ipcRenderer.send('KEY_DOWN', 'enter');
+            gameIpc.send('KEY_DOWN', 'enter');
             break;
           case 32: // space
-            ipcRenderer.send('KEY_DOWN', 'space');
+            gameIpc.send('KEY_DOWN', 'space');
             break;
 
           default:
             break;
         }
       });
-      document.addEventListener('keyup', e => {
+      document.addEventListener('keyup', (e) => {
         e.preventDefault();
         switch (e.keyCode) {
           case 37: // left
-            ipcRenderer.send('KEY_UP', 'left');
+            gameIpc.send('KEY_UP', 'left');
             break;
           case 39: // right
-            ipcRenderer.send('KEY_UP', 'right');
+            gameIpc.send('KEY_UP', 'right');
             break;
           case 32: // space
-            ipcRenderer.send('KEY_UP', 'space');
+            gameIpc.send('KEY_UP', 'space');
             break;
 
           default:

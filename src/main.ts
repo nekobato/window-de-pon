@@ -59,7 +59,8 @@ function createStage(stageNumber: number) {
         break;
     }
   }
-  ipcMain.on('KEY_UP', (_, payload: any) => {
+  ipcMain.on('KEY_DOWN', onKeyDown);
+  function onKeyUp(_: any, payload: any) {
     switch (payload) {
       case 'left':
         movingLeft = false;
@@ -73,8 +74,8 @@ function createStage(stageNumber: number) {
         } as electron.Rectangle);
         break;
     }
-    ipcMain.on('KEY_DOWN', onKeyDown);
-  });
+  }
+  ipcMain.on('KEY_UP', onKeyUp);
 
   const gameLoop = setInterval(() => {
     // Bar
@@ -145,13 +146,27 @@ function createStage(stageNumber: number) {
       } as electron.Rectangle);
     });
   }, 16.6); // 60fps
+
+  function disposeStage() {
+    clearInterval(gameLoop);
+    ipcMain.removeListener('KEY_DOWN', onKeyDown);
+    ipcMain.removeListener('KEY_UP', onKeyUp);
+  }
+  app.once('before-quit', disposeStage);
+  barWindow.once('closed', () => {
+    disposeStage();
+    app.removeListener('before-quit', disposeStage);
+  });
 }
 
 app.on('ready', () => {
   const { workAreaSize } = electron.screen.getPrimaryDisplay();
   menuWindow = createMenu(workAreaSize);
 
-  ipcMain.on('STAGE_SELECT', (_, stageNumber: number) => {
+  ipcMain.on('STAGE_SELECT', (event, stageNumber: number) => {
+    if (event.sender !== menuWindow.webContents || stageNumber !== 1) {
+      return;
+    }
     console.log('stage select', stageNumber);
     menuWindow.hide();
     createStage(stageNumber);
