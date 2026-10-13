@@ -7,7 +7,7 @@ const preloadPath = path.join(__dirname, 'preload.js');
 
 export function createMenu(workAreaSize: Size) {
   const width = 750;
-  let window = new BrowserWindow({
+  let window: BrowserWindow | null = new BrowserWindow({
     x: workAreaSize.width / 2 - width / 2,
     y: 0,
     width,
@@ -31,7 +31,7 @@ export function createMenu(workAreaSize: Size) {
 }
 
 export function createBall(bounds: Bounds) {
-  let window = new BrowserWindow({
+  let window: BrowserWindow | null = new BrowserWindow({
     ...bounds,
     // width: ballSize.w,
     // height: ballSize.h,
@@ -59,7 +59,7 @@ export function createBall(bounds: Bounds) {
 }
 
 export function createBlock(bounds: Bounds, type: string) {
-  let window = new BrowserWindow({
+  let window: BrowserWindow | null = new BrowserWindow({
     ...bounds,
     width: blockSize.w,
     height: blockSize.h,
@@ -84,7 +84,7 @@ export function createBlock(bounds: Bounds, type: string) {
 }
 
 export function createBar(bounds: Bounds) {
-  let window = new BrowserWindow({
+  let window: BrowserWindow | null = new BrowserWindow({
     ...bounds,
     width: barSize.w,
     height: barSize.h,

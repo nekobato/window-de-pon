@@ -4,7 +4,7 @@ import { barSize } from './sizes';
 import { withBlock, withBar, withScreen } from './collision';
 import { createBall, createBar, createBlocks, createMenu } from './windows';
 
-let menuWindow: BrowserWindow = null;
+let menuWindow: BrowserWindow | null = null;
 
 function createStage(stageNumber: number) {
   const stageData = require(`../public/data/stages/stage${stageNumber}`);
@@ -164,7 +164,7 @@ app.on('ready', () => {
   menuWindow = createMenu(workAreaSize);
 
   ipcMain.on('STAGE_SELECT', (event, stageNumber: number) => {
-    if (event.sender !== menuWindow.webContents || stageNumber !== 1) {
+    if (!menuWindow || event.sender !== menuWindow.webContents || stageNumber !== 1) {
       return;
     }
     console.log('stage select', stageNumber);

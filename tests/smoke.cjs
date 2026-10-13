@@ -3,6 +3,9 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { app, BrowserWindow, ipcMain } = require('electron');
+const { windowManager } = require('node-window-manager');
+
+assert.equal(typeof windowManager.getWindows, 'function', 'native window-manager binding loads in Electron');
 
 const testData = fs.mkdtempSync(path.join(os.tmpdir(), 'window-de-pon-test-'));
 process.chdir(testData);
